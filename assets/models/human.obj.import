@@ -1,0 +1,21 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://ckk3rv0pchjhl"
+path="res://.godot/imported/human.obj-8b86221df02d6547035b80052fbf89a6.mesh"
+
+[deps]
+
+files=["res://.godot/imported/human.obj-8b86221df02d6547035b80052fbf89a6.mesh"]
+
+source_file="res://assets/models/human.obj"
+dest_files=["res://.godot/imported/human.obj-8b86221df02d6547035b80052fbf89a6.mesh", "res://.godot/imported/human.obj-8b86221df02d6547035b80052fbf89a6.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true

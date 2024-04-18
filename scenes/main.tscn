@@ -1,0 +1,119 @@
+[gd_scene load_steps=10 format=3 uid="uid://gldgcvvpjljm"]
+
+[ext_resource type="PackedScene" uid="uid://bwvktujfj7qhj" path="res://scenes/player.tscn" id="1_3fm3u"]
+[ext_resource type="Script" path="res://scenes/main.gd" id="1_p4jrm"]
+[ext_resource type="Texture2D" uid="uid://dtjqtnhf266h" path="res://assets/textures/title_background.png" id="3_n3jqy"]
+[ext_resource type="Texture2D" uid="uid://f83b4qurdyki" path="res://assets/textures/title.png" id="4_mvidq"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_diwik"]
+sky_top_color = Color(0.384314, 0.454902, 0.54902, 1)
+sky_energy_multiplier = 7.62
+
+[sub_resource type="Sky" id="Sky_5o23p"]
+sky_material = SubResource("ProceduralSkyMaterial_diwik")
+
+[sub_resource type="Environment" id="Environment_6b7qw"]
+background_mode = 1
+background_color = Color(0.462745, 0.780392, 0.964706, 1)
+sky = SubResource("Sky_5o23p")
+
+[sub_resource type="BoxMesh" id="BoxMesh_i740x"]
+size = Vector3(40, 1, 40)
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_u3xjm"]
+data = PackedVector3Array(-20, 0.5, 20, 20, 0.5, 20, -20, -0.5, 20, 20, 0.5, 20, 20, -0.5, 20, -20, -0.5, 20, 20, 0.5, -20, -20, 0.5, -20, 20, -0.5, -20, -20, 0.5, -20, -20, -0.5, -20, 20, -0.5, -20, 20, 0.5, 20, 20, 0.5, -20, 20, -0.5, 20, 20, 0.5, -20, 20, -0.5, -20, 20, -0.5, 20, -20, 0.5, -20, -20, 0.5, 20, -20, -0.5, -20, -20, 0.5, 20, -20, -0.5, 20, -20, -0.5, -20, 20, 0.5, 20, -20, 0.5, 20, 20, 0.5, -20, -20, 0.5, 20, -20, 0.5, -20, 20, 0.5, -20, -20, -0.5, 20, 20, -0.5, 20, -20, -0.5, -20, 20, -0.5, 20, 20, -0.5, -20, -20, -0.5, -20)
+
+[node name="Main" type="Node3D"]
+script = ExtResource("1_p4jrm")
+player_scene = ExtResource("1_3fm3u")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_6b7qw")
+
+[node name="Floor" type="StaticBody3D" parent="."]
+
+[node name="FloorMesh" type="MeshInstance3D" parent="Floor"]
+mesh = SubResource("BoxMesh_i740x")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor"]
+shape = SubResource("ConcavePolygonShape3D_u3xjm")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="SplashScreen" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Background" type="TextureRect" parent="CanvasLayer/SplashScreen"]
+texture_filter = 1
+layout_mode = 0
+offset_right = 960.0
+offset_bottom = 540.0
+texture = ExtResource("3_n3jqy")
+
+[node name="Title" type="TextureRect" parent="CanvasLayer/SplashScreen"]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("4_mvidq")
+
+[node name="Host" type="Button" parent="CanvasLayer/SplashScreen"]
+layout_mode = 0
+offset_left = 35.0
+offset_top = 323.0
+offset_right = 359.0
+offset_bottom = 502.0
+text = "HOST"
+
+[node name="Join" type="Button" parent="CanvasLayer/SplashScreen"]
+layout_mode = 0
+offset_left = 600.0
+offset_top = 323.0
+offset_right = 930.0
+offset_bottom = 502.0
+text = "JOIN"
+
+[node name="IP" type="LineEdit" parent="CanvasLayer/SplashScreen"]
+layout_mode = 0
+offset_left = 91.0
+offset_top = 25.0
+offset_right = 297.0
+offset_bottom = 90.0
+text = "127.0.0.1"
+placeholder_text = "IP Address"
+
+[node name="Port" type="LineEdit" parent="CanvasLayer/SplashScreen"]
+layout_mode = 0
+offset_left = 658.0
+offset_top = 25.0
+offset_right = 879.0
+offset_bottom = 90.0
+text = "1027"
+placeholder_text = "Port"
+
+[node name="IsRat" type="CheckButton" parent="CanvasLayer/SplashScreen"]
+layout_mode = 0
+offset_left = 432.0
+offset_top = 390.0
+offset_right = 506.0
+offset_bottom = 421.0
+text = "Is Rat"
+
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
+_spawnable_scenes = PackedStringArray("res://scenes/player.tscn")
+spawn_path = NodePath("..")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.965926, 0.25, -0.0669873, 0, 0.258819, 0.965926, 0.258819, -0.933013, 0.25, 0, 11, 0)
+shadow_enabled = true
+
+[connection signal="pressed" from="CanvasLayer/SplashScreen/Host" to="." method="_on_host_pressed"]
+[connection signal="pressed" from="CanvasLayer/SplashScreen/Join" to="." method="_on_join_pressed"]

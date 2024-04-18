@@ -1,0 +1,67 @@
+[gd_scene load_steps=7 format=3 uid="uid://bwvktujfj7qhj"]
+
+[ext_resource type="Script" path="res://scenes/player.gd" id="1_ye220"]
+[ext_resource type="ArrayMesh" uid="uid://ckk3rv0pchjhl" path="res://assets/models/human.obj" id="2_2gykn"]
+[ext_resource type="ArrayMesh" uid="uid://dkc8acv5n0w1x" path="res://assets/models/rat.obj" id="2_bqgkd"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_buhkw"]
+height = 3.28325
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_ypu8t"]
+radius = 0.331527
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_s1w25"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/sync = true
+properties/0/watch = false
+properties/1/path = NodePath(".:rotation")
+properties/1/spawn = true
+properties/1/sync = true
+properties/1/watch = false
+properties/2/path = NodePath("HumanMesh:visible")
+properties/2/spawn = true
+properties/2/sync = true
+properties/2/watch = false
+properties/3/path = NodePath("HumanCollisionShape:disabled")
+properties/3/spawn = true
+properties/3/sync = true
+properties/3/watch = false
+properties/4/path = NodePath("RatMesh:visible")
+properties/4/spawn = true
+properties/4/sync = true
+properties/4/watch = false
+properties/5/path = NodePath("RatCollisionShape:disabled")
+properties/5/spawn = true
+properties/5/sync = true
+properties/5/watch = false
+
+[node name="Player" type="CharacterBody3D"]
+collision_layer = 2
+script = ExtResource("1_ye220")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.23273, -0.107006)
+
+[node name="HumanMesh" type="MeshInstance3D" parent="."]
+transform = Transform3D(-0.4, 0, 3.49691e-08, 0, 0.4, 0, -3.49691e-08, 0, -0.4, 0, 1.02342, 0.0911482)
+visible = false
+mesh = ExtResource("2_2gykn")
+
+[node name="HumanCollisionShape" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0348058, 0)
+visible = false
+shape = SubResource("CapsuleShape3D_buhkw")
+
+[node name="RatMesh" type="MeshInstance3D" parent="."]
+transform = Transform3D(-0.25, 0, -3.7749e-08, 0, 0.25, 0, 3.7749e-08, 0, -0.25, 0, 1.25853, 0.216973)
+mesh = ExtResource("2_bqgkd")
+skeleton = NodePath("../Camera3D")
+
+[node name="RatCollisionShape" type="CollisionShape3D" parent="."]
+transform = Transform3D(-0.5, 0, -7.54979e-08, 0, 0.5, 0, 7.54979e-08, 0, -0.5, 0, 1.22697, 0.0376484)
+shape = SubResource("SphereShape3D_ypu8t")
+disabled = true
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_s1w25")

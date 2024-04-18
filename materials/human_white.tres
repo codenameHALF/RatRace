@@ -1,0 +1,7 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://bclqihq1s0ht3"]
+
+[ext_resource type="Texture2D" uid="uid://qns6pelbdidx" path="res://assets/textures/human_white.png" id="1_wvg8a"]
+
+[resource]
+albedo_texture = ExtResource("1_wvg8a")
+texture_filter = 0

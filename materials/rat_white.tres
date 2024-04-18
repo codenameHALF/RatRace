@@ -1,0 +1,7 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://bu2h77b03seav"]
+
+[ext_resource type="Texture2D" uid="uid://dkkeiu6v2rc32" path="res://assets/textures/rat_white.png" id="1_stcm4"]
+
+[resource]
+albedo_texture = ExtResource("1_stcm4")
+texture_filter = 0
